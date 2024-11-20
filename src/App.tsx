@@ -2,21 +2,29 @@ import {useState} from 'react'
 
 
 function App() {
-  const[user, setUser] = useState({name: "", age: 0});
-  const updateName = (e: React.ChangeEvent<HTMLInputElement>) =>{
-    setUser((prevUser) => ({...prevUser, name: e.target.value}));
+  const [tasks, setTasks] = useState<string[]>([]);
+  const [newTask, setNewTask] = useState('')
+  const addTask = () => {
+    if(newTask.trim() === '') return;
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setNewTask('');
   };
-  const updateAge = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser((prevUser) => ({ ...prevUser, age: parseInt(e.target.value) }));
+  const removeTask = (indexToRemove: number) => {
+    setTasks((prevTask) => prevTask.filter((_, index) => index !== indexToRemove));
   };
-    
   return(
     <div>
-      <h2>Fehasznaloi adatok</h2>
-      Név:<input type="text" value={user.name} onChange={updateName}/><br/>
-      kor:<input type="text" value={user.age} onChange={updateAge}/><br/>
-      <p>Név: {user.name}</p>
-      <p>Kor: {user.age}</p>  
+      <h2>Feladatlista</h2>
+      <input type="text" value={newTask}  onChange={(e) => setNewTask(e.target.value)} />
+      <button onClick={addTask}>Hozzaadas</button>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            {task}
+            <button onClick={()=>removeTask(index)}>Torles</button>
+          </li>
+        ))}
+      </ul> 
     </div>
   );
 }
