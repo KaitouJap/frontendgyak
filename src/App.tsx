@@ -1,20 +1,12 @@
-import {useRef, useState, useEffect} from 'react'
+import {useState} from 'react'
 
 
 function App() {
-  const[count, setCount] = useState(0);
-  useEffect(()=>{
-    document.title = `You clicked ${count} times`;
-  }, [count]);
-  const inputRef = useRef<HTMLInputElement>(null);
-  useEffect(()=>{
-    inputRef.current?.focus();
-  },[]);
+  const[loggedIn, setLoggedIn] = useState(false);
   return(
     <div>
-      <p>You clicked {count} times</p>
-      <button onClick={()=> setCount(count + 1)}>Increase</button>
-      <input ref={inputRef} type="text"/>
+      {loggedIn ? (<p>Üdv újra itt!</p>) : (<p>Kérjük jelentkezz be!</p>)}
+      <button onClick={()=>setLoggedIn(!loggedIn)}>{loggedIn ? 'kijelentkezés' : 'bejelentkezés'}</button>
     </div>
   );
 }
