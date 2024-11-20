@@ -1,16 +1,20 @@
-import React, {useState} from 'react'
-import Greeting from './Greeting';
+import {useRef, useState, useEffect} from 'react'
 
 
 function App() {
   const[count, setCount] = useState(0);
+  useEffect(()=>{
+    document.title = `You clicked ${count} times`;
+  }, [count]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(()=>{
+    inputRef.current?.focus();
+  },[]);
   return(
     <div>
-      <h1>Hello, React with Vite!</h1>
-      <p>This is my first React component!</p>
-      <Greeting name="John" age={42}></Greeting>
-      <h2>Counter: {count}</h2>
+      <p>You clicked {count} times</p>
       <button onClick={()=> setCount(count + 1)}>Increase</button>
+      <input ref={inputRef} type="text"/>
     </div>
   );
 }
