@@ -1,3 +1,23 @@
-completed{
+.task{
+    color:red;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.task.completed span{
+    color:green;
     text-decoration: line-through;
+}
+
+ul{
+    list-style-type: none;
+}
+
+input, li span{
+    margin-right: 10px;
+}
+
+button{
+    margin-left: 10px;
 }
